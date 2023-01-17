@@ -21,18 +21,31 @@
 			<img alt="더보기" src="https://www.iconninja.com/files/860/824/939/more-icon.png" width=40>
 		</a>
 	</div>
-  <img class="card-img-top" src="https://cdn.pixabay.com/photo/2023/01/10/16/23/hedgehog-7710053_1280.jpg" alt="게시글이미지">
-  <div class="card-body">
-  	<div class="d-flex">
-  		<img alt="좋아요" src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width=25>
-  		<span class="ml-2">좋아요 10개</span>
-  	</div>
-  	<div class="mt-4">
-    	<strong>userName</strong> userContent
-    </div>
-    <p class="card-text"><small class="text-muted"></small></p>
-    <hr>
+	<img class="card-img-top" src="https://cdn.pixabay.com/photo/2023/01/10/16/23/hedgehog-7710053_1280.jpg" alt="게시글이미지">
+	<div class="card-body col-12">
+	  	<div class="d-flex">
+	  		<img alt="좋아요" src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width=25>
+	  		<span class="ml-2">좋아요 10개</span>
+	  	</div>
+	  	<div class="mt-2 h4">
+	    	<strong>userName</strong> userContent
+	    </div>
+	    <div class="border col-12">
+	    	<b>댓글</b>
+		    <hr>
+		    <div>
+			    <b>commnetId:</b>
+			    <span>comment</span>
+			    <img alt="삭제버튼" src="https://www.iconninja.com/files/603/22/506/x-icon.png" width=10>
+		    </div>
+		    <div class="col-12 d-flex">
+		    	<input type="text" class="form-control">
+		    	<input type="button" class="btn btn-secondary" value="게시">
+		    </div>
+	    </div>
+    <div>
     
+    </div>
   </div>
 </div>
 
