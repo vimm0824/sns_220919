@@ -1,25 +1,34 @@
-package com.sns.timeline.model;
+package com.sns.post.model;
 
 import java.util.Date;
 
 public class Post {
 
-	private int id; 
-	private String userId; 
-	private String content; 
-	private String imagePath; 
-	private Date createdAt; 
+	private int id;
+	private int userId;
+	private String loginId;
+	private String content;
+	private String imagePath;
+	private Date createdAt;
 	private Date updatedAt;
+	
+	
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getContent() {
@@ -46,5 +55,6 @@ public class Post {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 }

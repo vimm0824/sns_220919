@@ -29,10 +29,11 @@
 		<%-- 타임라인 영역 --%>
 		<div class="timeline-box my-5">
 			<%-- 카드1 --%>
+			<c:forEach var="post" items="${result}">
 			<div class="card border rounded mt-3">
 				<%-- 글쓴이, 더보기(삭제) --%>
 				<div class="p-2 d-flex justify-content-between">
-					<span class="font-weight-bold">글쓰니</span>
+					<span class="font-weight-bold">${post.loginId}</span>
 					
 					<%-- 더보기 --%>
 					<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${card.post.id}">
@@ -42,7 +43,7 @@
 				
 				<%-- 카드 이미지 --%>
 				<div class="card-img">
-					<img src="https://cdn.pixabay.com/photo/2022/04/13/20/32/silhouette-7131109_960_720.png" class="w-100" alt="본문 이미지">
+					<img src="${post.imagePath}" class="w-100" alt="본문 이미지" width="100">
 				</div>
 				
 				<%-- 좋아요 --%>
@@ -86,6 +87,71 @@
 			</div>
 			<%--// 카드1 끝 --%>
 		</div>
+		</c:forEach>
 		<%--// 타임라인 영역 끝  --%>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		// 파일업로드 이미지 클릭 => 숨겨져있는 file을 동작시킴
+		$('#fileUploadBtn').on('click', function(e) {
+			e.preventDefault(); // a태그의 올라가는 현상 방지
+			$('#file').click();
+		});
+		
+		// 사용자가 이미지를 선택했을때 유효성 확인 및 업로드 된 파일 이름 노출
+		$('#file').on('change', function(e) {
+			// alert(11111);
+			let fileName = e.target.files[0].name;	//4.png
+			//alert(fileName);
+			
+			// 확장자 유효성 확인
+			let ext = fileName.split(".").pop().toLowerCase();
+			if (ext != "png" && ext != "jpeg" && ext != "jpg" && ext != "png") {
+				alert("이미지 파일만 업로드 할수 있습니다.");
+				$('#file').val('');
+				$('#fileName').text('');
+				return;
+			}
+			
+			// 유효성 통과한 이미지
+			$('#fileName').text(fileName);
+		});
+		
+		$('#writeBtn').on('click', function() {
+			let content = $('#writeTextArea').val();
+			
+			if (content < 1) {
+				alert("게시글 내용을 작성해 주세요.");
+				return;
+			}
+			
+			let formData = new FormData();
+			formData.append("content", content);
+			formData.append("file", $('#file')[0].files[0]);
+			
+			$.ajax({
+				type: "post"
+				, url: "/post/create"
+				, data:formData
+				
+				, enctype:"multipart/form-data" 
+				, processData:false 
+				, contentType:false 
+				
+				,success:function(data) {
+					if (data.code == 1) {
+						alert("게시물이 저장되었습니다.");
+						location.href = "/timeline/timeline_view";
+					}
+				}
+				, error:function(e) {
+					alert("ajax error!!!");
+				}
+			});
+			
+			
+		});
+	});
+</script>
