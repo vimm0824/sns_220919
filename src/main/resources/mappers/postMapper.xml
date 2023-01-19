@@ -30,6 +30,7 @@
  		JOIN
  			`post` AS B
  		ON A.id = B.userId
+ 		ORDER BY B.`id` DESC
  		
  	</select>
  </mapper>

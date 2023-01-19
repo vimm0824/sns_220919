@@ -27,10 +27,10 @@
 		<%--// 글쓰기 영역 끝 --%>
 		
 		<%-- 타임라인 영역 --%>
+		<c:forEach var="post" items="${result}">
 		<div class="timeline-box my-5">
 			<%-- 카드1 --%>
-			<c:forEach var="post" items="${result}">
-			<div class="card border rounded mt-3">
+			<div class="card border rounded mt-3 container">
 				<%-- 글쓴이, 더보기(삭제) --%>
 				<div class="p-2 d-flex justify-content-between">
 					<span class="font-weight-bold">${post.loginId}</span>
@@ -43,7 +43,7 @@
 				
 				<%-- 카드 이미지 --%>
 				<div class="card-img">
-					<img src="${post.imagePath}" class="w-100" alt="본문 이미지" width="100">
+					<img src="${post.imagePath}" class="" alt="본문 이미지" width="500">
 				</div>
 				
 				<%-- 좋아요 --%>
@@ -56,8 +56,8 @@
 				
 				<%-- 글 --%>
 				<div class="card-post m-3">
-					<span class="font-weight-bold">글쓰니</span>
-					<span>글 내용입니다</span>
+					<span class="font-weight-bold">${post.loginId}</span>
+					<span>${post.content}</span>
 				</div>
 				
 				<%-- 댓글 --%>
@@ -87,8 +87,8 @@
 			</div>
 			<%--// 카드1 끝 --%>
 		</div>
-		</c:forEach>
 		<%--// 타임라인 영역 끝  --%>
+		</c:forEach>
 	</div>
 </div>
 
