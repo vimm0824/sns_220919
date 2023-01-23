@@ -52,4 +52,20 @@
  			AND
  			`password` = #{password}
  	</select>
+ 	
+ 	<select id="selecetUserById" resultType="com.sns.user.model.User">
+ 		SELECT
+ 			`id`
+ 			, `loginId`
+ 			, `password`
+ 			, `name`
+ 			, `email`
+ 			, `profileUrl`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
  </mapper>

@@ -44,7 +44,7 @@
 	$(document).ready(function() {
 		$('#signUpBtn').on('submit', function(e) {
 			//alert(111111);
-			e.preventDefault();
+			e.preventDefault();				// submit에 기능 멈춤 코
 			
 			let loginId = $('#loginId').val().trim();
 			let password = $('#password').val();

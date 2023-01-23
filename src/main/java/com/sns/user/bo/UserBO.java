@@ -1,5 +1,7 @@
 package com.sns.user.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,9 @@ public class UserBO {
 	
 	public User getUserByIdPassword(String loginId, String password) {
 		return userDAO.selectUserByIdPassword(loginId, password);
+	}
+	
+	public User getUserById(int id) {
+		return userDAO.selecetUserById(id);
 	}
 }

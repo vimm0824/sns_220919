@@ -27,13 +27,13 @@
 		<%--// 글쓰기 영역 끝 --%>
 		
 		<%-- 타임라인 영역 --%>
-		<c:forEach var="post" items="${result}">
+		<c:forEach var="card" items="${cardResult}">
 		<div class="timeline-box my-5">
 			<%-- 카드1 --%>
 			<div class="card border rounded mt-3 container">
 				<%-- 글쓴이, 더보기(삭제) --%>
 				<div class="p-2 d-flex justify-content-between">
-					<span class="font-weight-bold">${post.loginId}</span>
+					<span class="font-weight-bold">${card.user.loginId}</span>
 					
 					<%-- 더보기 --%>
 					<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${card.post.id}">
@@ -43,21 +43,28 @@
 				
 				<%-- 카드 이미지 --%>
 				<div class="card-img">
-					<img src="${post.imagePath}" class="" alt="본문 이미지" width="500">
+					<img src="${card.post.imagePath}" class="" alt="본문 이미지" width="500">
 				</div>
 				
 				<%-- 좋아요 --%>
 				<div class="card-like m-3">
-					<a href="#" class="like-btn">
-					<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
-						좋아요 10개
+					<a href="/like/${card.post.id}" class="like-btn" data-post-id="${card.post.id}">
+					<c:choose>
+						<c:when test="${card.filedLike}">
+							<img src="https://www.iconninja.com/files/527/809/128/heart-icon.png" width="18" height="18" alt="not empty heart">
+						</c:when>
+						<c:otherwise>
+							<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
+						</c:otherwise>
+					</c:choose>
+						좋아요 ${card.countLike}개
 					</a>
 				</div>
 				
 				<%-- 글 --%>
 				<div class="card-post m-3">
-					<span class="font-weight-bold">${post.loginId}</span>
-					<span>${post.content}</span>
+					<span class="font-weight-bold">${card.user.loginId}</span>
+					<span>${card.post.content}</span>
 				</div>
 				
 				<%-- 댓글 --%>
@@ -67,21 +74,24 @@
 				
 				<%-- 댓글 목록 --%>
 				<div class="card-comment-list m-2">
+					<c:forEach var="commentView" items="${card.commentList}">
 					<div class="card-comment m-1">
-						<span class="font-weight-bold">댓글쓰니:</span>
-						<span>댓글 내용11111</span>
+						<span class="font-weight-bold">${commentView.user.loginId}:</span>
+						<span>${commentView.comment.content}</span>
 						
 						<%-- 댓글 삭제 버튼 --%>
 						<a href="#" class="commentDelBtn">
 							<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
 						</a>
 					</div>
-					
+					</c:forEach>
 					<%-- 댓글 쓰기 --%>
+					<c:if test="${not empty userId}">
 					<div class="comment-write d-flex border-top mt-2">
 						<input type="text" class="form-control border-0 mr-2" placeholder="댓글 달기"/> 
 						<button type="button" class="comment-btn btn btn-light" data-post-id="${card.post.id}">게시</button>
 					</div>
+					</c:if>
 				</div>
 				<%--// 댓글 목록 끝 --%>
 			</div>
@@ -94,6 +104,65 @@
 
 <script>
 	$(document).ready(function() {
+		$('.like-btn').on('click', function(e) {
+			e.preventDefault();
+			//alert(postId);
+			
+			// let postId = $(this).data('post-id');
+			let path = $(this).attr('href');
+			
+			//alert(path);
+			
+			$.ajax({
+				type:"get"
+				, url:path
+				
+				, success:function(data) {
+					if (data.code == 1) {
+						alert(data.result);
+						location.reload();
+					} else {
+						alert(data.errorMassage);
+					}
+				}
+			
+				, error:function(e) {
+					alert("ajax error");
+				}
+			}); 
+			
+		});
+		
+		// 댓글
+		$('.comment-btn').on('click', function() {
+			let postId = $(this).data('post-id');
+			let content = $(this).siblings('input').val(); 
+			// alert(postId + "++" + content);
+			if (content.length < 1) {
+				alert("댓글을 입력하세요!!!");
+				return;
+			}
+			
+			$.ajax({
+				type:"post"
+				, url:"/comment/create"
+				, data:{"postId":postId, "content":content}
+			
+				, success:function(data) {
+					if (data.code == 1) {
+						alert("댓글 성공!!!");
+						location.reload();
+					} else {
+						alert("댓글 실패");
+					}
+				}
+				, error:function(e) {
+					alert("ajax error!!!");
+				}
+			});
+			
+		});
+		
 		// 파일업로드 이미지 클릭 => 숨겨져있는 file을 동작시킴
 		$('#fileUploadBtn').on('click', function(e) {
 			e.preventDefault(); // a태그의 올라가는 현상 방지

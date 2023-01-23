@@ -24,13 +24,14 @@
  	
  	<select id="selectPostList" resultType="com.sns.post.model.Post">
  		SELECT
- 			A.*, B.*
+ 			`id`
+ 			, `userId`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
  		FROM
- 			`user` AS A
- 		JOIN
- 			`post` AS B
- 		ON A.id = B.userId
- 		ORDER BY B.`id` DESC
- 		
+ 			`post`
+ 		ORDER BY `id` DESC
  	</select>
  </mapper>
