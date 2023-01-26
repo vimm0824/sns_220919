@@ -11,19 +11,28 @@ public class LikeBO {
 	@Autowired
 	private LikeDAO likeDAO;
 	
-	public int addLike(int userId, int postId) {
-		return likeDAO.insertLike(userId, postId);
+	public int likeToggle(int userId, int postId) {
+		if (haveLikeByUserIdPostId(userId, postId)) {
+			return likeDAO.deleteLike(userId, postId);
+		} else {
+			return likeDAO.insertLike(userId, postId);
+		}
 	}
 	
-	public int getCountLikeByPostId(int postId) {
-		return likeDAO.selecetCountLikeByPostId(postId);
+//	public int addLike(int userId, int postId) {
+//		return likeDAO.insertLike(userId, postId);
+//	}
+//	
+	public void deleteLikeByPostId(int postId) {
+		likeDAO.deleteLikeByPostId(postId);
 	}
 	
 	public boolean haveLikeByUserIdPostId(int userId, int postId) {
-		return likeDAO.haveLikeByUserIdPostId(userId, postId);
+		return likeDAO.selectLikeCountByPostIdOrUserId(userId, postId) > 0 ? true : false;
 	}
 	
-	public int deleteLike(int userId, int postId) {
-		return likeDAO.deleteLike(userId, postId);
+	public int getCountLikeByPostId(int postId) {
+		return likeDAO.selectLikeCountByPostIdOrUserId(null, postId);
 	}
+	
 }

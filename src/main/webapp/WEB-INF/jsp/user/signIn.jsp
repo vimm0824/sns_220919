@@ -14,7 +14,7 @@
                 <div class="mt-2">
                 	<a href="/user/sign_up_view" type="button" id="signUp" class="btn btn-secondary col-12">회원가입</a>
                 </div>
-            </div>
+	</div>
 </form>
 
 <script>

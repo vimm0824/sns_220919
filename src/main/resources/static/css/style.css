@@ -3,4 +3,6 @@ header {height:100px;}
 .logo {color:#000; font-weight: bold;}
 .logo:hover {color:#000; text-decoration: none;}
 .contents {min-height:500px;}
+#info {min-height:800px;}
+#user-top {height:300px;}
 footer {height:100px;}

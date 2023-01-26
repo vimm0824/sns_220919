@@ -34,14 +34,15 @@ public class LikeRestCotroller {
 			result.put("errorMassage", "로그인 후 이용해주세요.");
 			return result;
 		}
+		
 		boolean liked = likeBO.haveLikeByUserIdPostId(userId, postId);
 		
-		int row = 0;
-		if (liked == false) {
-			row = likeBO.addLike(userId, postId);
-		} else {
-			row = likeBO.deleteLike(userId, postId);
-		}
+		int row = likeBO.likeToggle(userId, postId);
+//		if (liked == false) {
+//			row = likeBO.addLike(userId, postId);
+//		} else {
+//			row = likeBO.deleteLike(userId, postId);
+//		}
 		
 		if (row > 0) {
 			result.put("code", 1);

@@ -18,6 +18,7 @@
  		)
  	</insert>
  	
+ 	<!-- 
  	<select id="selecetCountLikeByPostId" resultType="int">
  		SELECT
  			COUNT(*)
@@ -37,6 +38,19 @@
  			AND
  			`postId` = #{postId}
 	</select>
+	 -->
+	<select id="selectLikeCountByPostIdOrUserId" parameterType="map" resultType="int">
+		SELECT
+ 			COUNT(*)
+ 		FROM
+ 			`like`
+ 		WHERE
+ 			`postId` = #{postId}
+ 			<if test="userId != null">
+ 			AND
+ 			`userId` = #{userId}
+ 			</if>
+	</select>
 	
 	<delete id="deleteLike" parameterType="map">
 		DELETE
@@ -47,4 +61,13 @@
 			AND
 			`postId` = #{postId}
 	</delete>
+	
+	<delete id="deleteLikeByPostId" parameterType="map">
+		DELETE
+		FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+	</delete>
+	
  </mapper>

@@ -32,4 +32,11 @@ public class UserController {
 		session.removeAttribute("userName");
 		return "redirect:/user/sign_in_view";
 	}
+	
+	@GetMapping("/detail_user")
+	public String detailUser(Model model) {
+		
+		model.addAttribute("viewName", "user/detail");
+		return "template/layout";
+	}
 }

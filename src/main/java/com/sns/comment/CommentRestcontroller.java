@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,13 @@ public class CommentRestcontroller {
 	@Autowired
 	private CommentBO commentBO;
 	
+	/**
+	 * 댓글 작성
+	 * @param postId
+	 * @param content
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("postId") int postId,
@@ -43,6 +51,27 @@ public class CommentRestcontroller {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "댓글 실패 문의 바람");
+		}
+		
+		return result;
+	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, Object> delete(
+			@RequestParam("id") int id,
+			HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
+		
+		int userId = (int)session.getAttribute("userId");
+		
+		int row = commentBO.deleteCommentByIdUserId(id, userId);
+		
+		if (row > 0) {
+			result.put("code", 1);
+			result.put("result", "댓글 삭제 성공");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "댓글 삭제 실패 문의 바람");
 		}
 		
 		return result;
