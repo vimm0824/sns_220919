@@ -1,9 +1,13 @@
 package com.sns.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sns.user.bo.UserBO;
+import com.sns.user.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -11,6 +15,9 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/user")
 public class UserController {
 
+	@Autowired
+	private UserBO userBO;
+	
 	// http://localhost:8080/user/sign_up_view
 	@GetMapping("/sign_up_view")
 	public String signUpView(Model model) {
@@ -33,10 +40,17 @@ public class UserController {
 		return "redirect:/user/sign_in_view";
 	}
 	
-	@GetMapping("/detail_user")
-	public String detailUser(Model model) {
+	@GetMapping("/info_user")
+	public String detailUser(Model model, HttpSession session) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/user/sign_in_view";
+		}
 		
-		model.addAttribute("viewName", "user/detail");
+		User user = userBO.getUserById(userId);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("viewName", "user/info");
 		return "template/layout";
 	}
 }

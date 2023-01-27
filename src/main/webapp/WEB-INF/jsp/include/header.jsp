@@ -16,6 +16,7 @@
 		<div class="col-10 d-flex justify-content-end align-items-center">
 			<a href="/user/sign_in_view" class="btn btn-info">로그인</a>
 			<a href="/user/sign_up_view" class="btn btn-secondary">회원가입</a>
+			<a href="#"></a>
 		</div>
 	</c:if>
 </div>

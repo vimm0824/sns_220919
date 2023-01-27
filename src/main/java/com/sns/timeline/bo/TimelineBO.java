@@ -15,8 +15,6 @@ import com.sns.timeline.model.CardView;
 import com.sns.user.bo.UserBO;
 import com.sns.user.model.User;
 
-import jakarta.servlet.http.HttpSession;
-
 @Service
 public class TimelineBO {
 
