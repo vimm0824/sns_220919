@@ -40,17 +40,5 @@ public class UserController {
 		return "redirect:/user/sign_in_view";
 	}
 	
-	@GetMapping("/info_user")
-	public String detailUser(Model model, HttpSession session) {
-		Integer userId = (Integer)session.getAttribute("userId");
-		if (userId == null) {
-			return "redirect:/user/sign_in_view";
-		}
-		
-		User user = userBO.getUserById(userId);
-		
-		model.addAttribute("user", user);
-		model.addAttribute("viewName", "user/info");
-		return "template/layout";
-	}
+	
 }

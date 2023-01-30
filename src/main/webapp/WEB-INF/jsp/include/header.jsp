@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="d-flex">	
-	<div class="p-4 text-center">
+	<div class="p-4">
 		<a href="/timeline/timeline_view" class="logo display-3">SNS</a>
 	</div>
 	
@@ -10,6 +10,7 @@
 	<div class="col-10 d-flex justify-content-end align-items-center">
 		<span>${userName}님 안녕하세요.</span>
 		<a href="/user/sign_out" class="font-weight-bold">로그아웃</a>
+		<a href="/info/info_user?userId=${userId}" class="btn btn-success ml-3">내 프로필</a>
 	</div>
 	</c:if>
 	<c:if test="${empty userId}">

@@ -35,6 +35,21 @@
  		ORDER BY `id` DESC
  	</select>
  	
+ 	<select id="selecetPostListByUserId" resultType="com.sns.post.model.Post">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`userId` = #{userId}
+ 		ORDER BY `id` DESC
+ 	</select>
+ 	
  	<select id="selecetPostByPostIdUserId" parameterType="map" resultType="com.sns.post.model.Post">
  		SELECT
  			`id`
